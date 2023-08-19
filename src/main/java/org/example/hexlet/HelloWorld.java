@@ -8,7 +8,15 @@ public class HelloWorld {
             config.plugins.enableDevLogging();
         });
         // Описываем что загрузится по адресу /
-        app.get("/", ctx -> ctx.result("Hello World"));
+
+        app.get("/hello", ctx -> {
+            String name = ctx.queryParam("name");
+            ctx.result("Hello" + " " + name);
+            if (name == null) {
+                ctx.result("Hello World!");
+            }
+        });
+
         app.start(7070); // Стартуем веб-сервер
 
     }
